@@ -74,11 +74,15 @@ const menu = [
 ];
 
 const sectionCenter = document.querySelector(".section-center");
+const btns = document.querySelector(".btn-container").children
 
-window.addEventListener("DOMContentLoaded", function () {
-  let displayMenu = menu.map(function (item) {
-    // console.log(item);
+function carregarItens(menu) {
+  let displayMenu = menu.map(item => gerarItens(item));
+  displayMenu = displayMenu.join("");
+  sectionCenter.innerHTML = displayMenu;
+}
 
+function gerarItens(item) {
     return `<article class="menu-item">
           <img src=${item.img} alt=${item.title} class="photo" />
           <div class="item-info">
@@ -91,9 +95,22 @@ window.addEventListener("DOMContentLoaded", function () {
             </p>
           </div>
         </article>`;
-  });
-  displayMenu = displayMenu.join("");
-  console.log(displayMenu);
+}
 
-  sectionCenter.innerHTML = displayMenu;
-});
+function filtrarItens(filtro){
+  let menuFiltrado = menu;
+  if (filtro !== "all"){
+    menuFiltrado = menu.filter(cat => cat.category === filtro)
+  }
+  carregarItens(menuFiltrado)
+}
+
+window.addEventListener("DOMContentLoaded", carregarItens(menu));
+
+for (let i = 0; i < btns.length; i++){
+  const item = btns.item(i)
+
+  item.addEventListener('click', () => {
+    filtrarItens(item.innerText.toLowerCase())
+  })
+}
