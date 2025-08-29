@@ -199,8 +199,12 @@ Menu
   display: flex;
   justify-content: center;
 }
-.search{
+.search, .search::placeholder{
   width: 100%;
+  color: var(--clr-gold);
+}
+.search:hover, .search:hover::placeholder {
+  color: var(--clr-white)
 }
 .filter-btn {
   background: transparent;
