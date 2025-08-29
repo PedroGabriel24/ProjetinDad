@@ -75,6 +75,7 @@ const menu = [
 
 const sectionCenter = document.querySelector(".section-center");
 const btns = document.querySelector(".btn-container").children
+const searchBar = document.getElementById("search")
 
 function carregarItens(menu) {
   let displayMenu = menu.map(item => gerarItens(item));
@@ -104,6 +105,15 @@ function filtrarItens(filtro){
   }
   carregarItens(menuFiltrado)
 }
+
+addEventListener("input", function (event) {
+  if (event.inputType === "insertText"){
+    const value = event.target.value;
+    console.log(value)
+    const menuFiltrado =  menu.filter(item => (item.title.includes(value) || item.desc.includes(value)))
+    carregarItens(menuFiltrado)
+  }
+})
 
 window.addEventListener("DOMContentLoaded", carregarItens(menu));
 
